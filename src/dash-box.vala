@@ -216,10 +216,10 @@ public class DashBox : Gtk.Box
 
         CairoUtils.rounded_rectangle (c, 0, box_y, box_w, box_h, box_r);
 
-        c.set_source_rgba (0.1, 0.1, 0.1, 0.4);
+        c.set_source_rgba (0.1, 0.1, 0.1, 0.0);
         c.fill_preserve ();
 
-        c.set_source_rgba (0.4, 0.4, 0.4, 0.4);
+        c.set_source_rgba (0.4, 0.4, 0.4, 0.0);
         c.set_line_width (1);
         c.stroke ();
 

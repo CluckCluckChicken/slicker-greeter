@@ -104,8 +104,8 @@ public abstract class GreeterList : FadableBox
     }
     protected Mode mode = Mode.ENTRY;
 
-    public const int BORDER = 4;
-    public const int BOX_WIDTH = 9; /* in grid_size blocks */
+    public const int BORDER = 8;
+    public const int BOX_WIDTH = 6; /* in grid_size blocks */
     public const int DEFAULT_BOX_HEIGHT = 3; /* in grid_size blocks */
 
     private uint n_above = 4;
@@ -290,7 +290,7 @@ public abstract class GreeterList : FadableBox
             will_clear = false;
         }
 
-        selected_entry.add_message (text, is_error);
+        //selected_entry.add_message (text, is_error);
     }
 
     public DashEntry add_prompt (string text, bool secret = false)

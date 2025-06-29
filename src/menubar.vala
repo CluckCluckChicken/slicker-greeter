@@ -103,7 +103,7 @@ public class MenuBar : Gtk.MenuBar
         }
 
         c.set_source_rgb (0.1, 0.1, 0.1);
-        c.paint_with_alpha (0.4);
+        c.paint_with_alpha (/*0.4*/0);
 
         foreach (var child in get_children ())
         {
@@ -450,10 +450,46 @@ public class MenuBar : Gtk.MenuBar
             });
         }
 
-        Gtk.MenuItem menu_item = new Gtk.MenuItem.with_label (_("Quit..."));
+        if (LightDM.get_can_restart ())
+        {
+            Gtk.MenuItem menu_item = new Gtk.MenuItem.with_label (_("Restart"));
+            menu_item.show ();
+            submenu.append (menu_item);
+            menu_item.activate.connect (() =>
+            {
+                try
+                {
+                    LightDM.restart ();
+                }
+                catch (Error e)
+                {
+                    warning ("Failed to restart: %s", e.message);
+                }
+            });
+        }
+
+        if (LightDM.get_can_shutdown ())
+        {
+            Gtk.MenuItem menu_item = new Gtk.MenuItem.with_label (_("Shutdown"));
+            menu_item.show ();
+            submenu.append (menu_item);
+            menu_item.activate.connect (() =>
+            {
+                try
+                {
+                    LightDM.shutdown ();
+                }
+                catch (Error e)
+                {
+                    warning ("Failed to shutdown: %s", e.message);
+                }
+            });
+        }
+
+        /*Gtk.MenuItem menu_item = new Gtk.MenuItem.with_label (_("Quit..."));
         menu_item.activate.connect (shutdown_cb);
         menu_item.show ();
-        submenu.append (menu_item);
+        submenu.append (menu_item);*/
 
         return item;
     }

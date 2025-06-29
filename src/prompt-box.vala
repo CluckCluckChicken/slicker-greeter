@@ -101,10 +101,9 @@ public class PromptBox : FadableBox
         add (fixed);
 
         box_grid = new Gtk.Grid ();
-        box_grid.column_spacing = 4;
-        box_grid.row_spacing = 3;
-        box_grid.margin_top = GreeterList.BORDER;
-        box_grid.margin_bottom = 6;
+        //box_grid.column_spacing = 4;
+        box_grid.row_spacing = GreeterList.BORDER * 2;
+        //box_grid.margin_bottom = 6;
         box_grid.expand = true;
 
         /** Grid layout:
@@ -114,16 +113,16 @@ public class PromptBox : FadableBox
             Entry.........
          */
 
-        active_indicator = new ActiveIndicator ();
+        /*active_indicator = new ActiveIndicator ();
         active_indicator.valign = Gtk.Align.START;
         active_indicator.margin_top = (grid_size - ActiveIndicator.HEIGHT) / 2;
         active_indicator.show ();
-        box_grid.attach (active_indicator, COL_ACTIVE, last_row, 1, 1);
+        box_grid.attach (active_indicator, COL_ACTIVE, last_row, 1, 1);*/
 
         /* Add a second one on right just for equal-spacing purposes */
-        var dummy_indicator = new ActiveIndicator ();
+        /*var dummy_indicator = new ActiveIndicator ();
         dummy_indicator.show ();
-        box_grid.attach (dummy_indicator, COL_SPACER, last_row, 1, 1);
+        box_grid.attach (dummy_indicator, COL_SPACER, last_row, 1, 1);*/
 
         box_grid.show ();
 
@@ -164,7 +163,7 @@ public class PromptBox : FadableBox
         small_box_eventbox.show ();
         small_box_widget = small_box_eventbox;
 
-        fixed.add (small_box_widget);
+        //fixed.add (small_box_widget);
         fixed.add (box_grid);
     }
 
@@ -174,7 +173,7 @@ public class PromptBox : FadableBox
         name_grid.column_spacing = 4;
         name_grid.hexpand = true;
 
-        name_label = new FadingLabel ("");
+        /*name_label = new FadingLabel ("");
         name_label.override_font (Pango.FontDescription.from_string ("Ubuntu 13"));
         name_label.override_color (Gtk.StateFlags.NORMAL, { 1.0f, 1.0f, 1.0f, 1.0f });
         name_label.valign = Gtk.Align.START;
@@ -211,7 +210,7 @@ public class PromptBox : FadableBox
         option_image.show ();
 
         option_button.add (option_image);
-        name_grid.attach (option_button, COL_NAME_OPTIONS, ROW_NAME, 1, 1);
+        name_grid.attach (option_button, COL_NAME_OPTIONS, ROW_NAME, 1, 1);*/
 
         name_grid.show ();
 

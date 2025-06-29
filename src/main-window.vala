@@ -34,6 +34,8 @@ public class MainWindow : Gtk.Window
     private Gtk.Button back_button;
     private ShutdownDialog? shutdown_dialog = null;
     private bool do_resize;
+    private Gtk.Label clock_label;
+    private Gtk.Label date_label;
 
     public ListStack stack;
 
@@ -67,7 +69,7 @@ public class MainWindow : Gtk.Window
         var menualign = new Gtk.Alignment (0.0f, 0.0f, 1.0f, 0.0f);
         var shadow_path = Path.build_filename (Config.PKGDATADIR,
                                                "shadow.png", null);
-        var shadow_style = "";
+        /*var shadow_style = "";
         if (FileUtils.test (shadow_path, FileTest.EXISTS))
         {
             shadow_style = "background-image: url('%s');background-repeat: repeat;".printf(shadow_path);
@@ -83,7 +85,7 @@ public class MainWindow : Gtk.Window
         catch (Error e)
         {
             debug ("Internal error loading menubox style: %s", e.message);
-        }
+        }*/
         menubox.set_size_request (-1, MENUBAR_HEIGHT);
         menubox.show ();
         menualign.show ();
@@ -96,6 +98,23 @@ public class MainWindow : Gtk.Window
         menubar.show ();
         menualign.add (menubar);
         SlickGreeter.add_style_class (menubar);
+
+        clock_label = new Gtk.Label ("");
+        clock_label.margin_top = 150;
+        clock_label.override_font (Pango.FontDescription.from_string ("Dosis 120"));
+        clock_label.override_color (Gtk.StateFlags.NORMAL, { 0.9f, 0.9f, 0.9f, 1.0f });
+        clock_label.show ();
+        login_box.add (clock_label);
+
+        date_label = new Gtk.Label ("");
+        date_label.margin_top = 0;
+        date_label.override_font (Pango.FontDescription.from_string ("Helvetica Neue 20"));
+        date_label.override_color (Gtk.StateFlags.NORMAL, { 0.9f, 0.9f, 0.9f, 1.0f });
+        date_label.show ();
+        login_box.add (date_label);
+
+        update_clock();
+        Timeout.add_seconds_full (GLib.Priority.DEFAULT, 1, update_clock);
 
         content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         content_box.expand = true;
@@ -114,7 +133,7 @@ public class MainWindow : Gtk.Window
             x_align = 1.0f;
         }
 
-        var align = new Gtk.Alignment (x_align, 0.0f, 0.0f, 1.0f);
+        var align = new Gtk.Alignment (x_align, 1.0f, 0.0f, 0.05f);
 
         if (content_align == "center")
         {
@@ -191,6 +210,13 @@ public class MainWindow : Gtk.Window
         if (login_box.sensitive) {
             login_box.show();
         }
+    }
+
+    private bool update_clock () {
+        var now = new GLib.DateTime.now_local ();
+        clock_label.set_markup (now.format ("%H:%M"));
+        date_label.set_markup (now.format ("%A, %e %B"));
+        return true;
     }
 
     public void push_list (GreeterList widget)
