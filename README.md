@@ -1,7 +1,7 @@
 
 A slick-looking LightDM greeter
 
-![Slick Greeter](https://www.linuxmint.com/tmp/blog/3254/thumb_slick.png)
+![Slick Greeter](Screenshot.png)
 
 # Configuration
 
