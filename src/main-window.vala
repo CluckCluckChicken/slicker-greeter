@@ -215,7 +215,7 @@ public class MainWindow : Gtk.Window
     private bool update_clock () {
         var now = new GLib.DateTime.now_local ();
         clock_label.set_markup (now.format ("%H:%M"));
-        date_label.set_markup (now.format ("%A, %e %B"));
+        date_label.set_markup (now.format ("%A, %-e %B"));
         return true;
     }
 
